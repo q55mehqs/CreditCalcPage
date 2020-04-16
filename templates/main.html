@@ -66,9 +66,10 @@
 </script>
 <div class="wrapper">
   <h2>総合工学科 {{ course_name }} 単位計算機</h2>
-  <a href="/">IS</a>
-  <a href="/it">IT</a>
-  <a href="/ie">IE</a>
+  <a href="/" class="raised">IS</a>
+  <a href="/it" class="raised">IT</a>
+  <a href="/ie" class="raised">IE</a>
+  <hr>
   <div class="column credit">
     <details>
       <summary>必修科目一覧</summary>
@@ -97,6 +98,7 @@
         </ul>
       {% endfor %}
     </details>
+    <hr>
 
     <form name="creditForm">
       {% for class_credit in select_credits %}
