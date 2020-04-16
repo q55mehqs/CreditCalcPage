@@ -3,6 +3,10 @@ ul {
   padding-left: 0px;
 }
 
+label, input[type='checkbox'] {
+  cursor: pointer;
+}
+
 .calc {
   position: fixed;
   bottom: 0px;
