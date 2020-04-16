@@ -15,7 +15,9 @@
     const select_credits_checkbox = document.creditForm.credits;
     for(let i = 0; i < select_credits_checkbox.length; i++) {
       if(select_credits_checkbox[i].checked) {
-        select_credit = select_credits[select_credits_checkbox[i].value]
+        let split = select_credits_checkbox[i].value.split(' ')
+        select_credit = select_credits[split[0]][split[1]]
+
         if(select_credit.専門) {
           spe += select_credit.単位数;
         }
@@ -40,10 +42,12 @@
   <a href="/it">IT</a>
   <a href="/ie">IE</a>
   <div class="column credit">
-    <ul>
-      <details>
-        <summary>必修科目一覧</summary>
-        {% for credit in must_credits %}
+    <details>
+      <summary>必修科目一覧</summary>
+      {% for class_credit in must_credits %}
+        <h4>{{ loop.index }}年</h4>
+        <ul>
+          {% for credit in class_credit %}
           <li>
             {{ credit.単位数 }}単位 
             <span style="border: 1px solid;">
@@ -62,33 +66,42 @@
             </span>
             {{ credit.教科名 }}
           </li>
-        {% endfor %}
-      </details>
-      <form name="creditForm">
-        {% for credit in select_credits %}
-          <li>
-            <input type="checkbox" name="credits" value="{{ loop.index0 }}" onchange="updateCount()">
-            {{ credit.単位数 }}単位 
-            <span style="border: 1px solid;">
-              {% if credit.専門 %}
-                専門
-              {% else %}
-                一般
-              {% endif %}
-            </span>
-            <span style="border: 1px solid;">
-              {% if credit.学修 %}
-                学修
-              {% else %}
-                履修
-              {% endif %}
-            </span>
-            {{ credit.教科名 }}
-          </li>
-        {% endfor %}
-      </form>
-    </ul>
+          {% endfor %}
+        </ul>
+      {% endfor %}
+    </details>
+
+    <form name="creditForm">
+      {% for class_credit in select_credits %}
+        {% set outer_index = loop.index0 %}
+        <h4>{{ loop.index }}年</h4>
+        <ul>
+          {% for credit in class_credit %}
+            <li>
+              <input type="checkbox" name="credits" value="{{ outer_index }} {{ loop.index0 }}" onchange="updateCount()">
+              {{ credit.単位数 }}単位 
+              <span style="border: 1px solid;">
+                {% if credit.専門 %}
+                  専門
+                {% else %}
+                  一般
+                {% endif %}
+              </span>
+              <span style="border: 1px solid;">
+                {% if credit.学修 %}
+                  学修
+                {% else %}
+                  履修
+                {% endif %}
+              </span>
+              {{ credit.教科名 }}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endfor %}
+    </form>
   </div>
+
   <div class="column calc">
     <ul>
       <li>一般科目(75+): <span id="general">{{ must_general }}</span></li>

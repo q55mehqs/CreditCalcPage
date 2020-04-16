@@ -10,10 +10,10 @@ with open("snctCredit/jugyoList_17s_linear.json", "r", encoding="utf-8") as f:
 def class_jugyo_data(course_class_list):
     items = []
     for _class in course_class_list:
-        items.extend(items_class_sort[_class])
+        items.append(items_class_sort[_class])
 
-    select_list = [item for item in items if not item["必修"]]
-    must_list = [item for item in items if item["必修"]]
+    select_list = [[item for item in class_items if not item["必修"]] for class_items in items]
+    must_list = [[item for item in class_items if item["必修"]] for class_items in items]
 
     return must_list, select_list
 
@@ -22,14 +22,15 @@ def must_count(must_list):
     must_general = 0
     must_special = 0
     must_gakushu = 0
-    for must_credit in must_list:
-        if must_credit["専門"]:
-            must_special += must_credit["単位数"]
-        else:
-            must_general += must_credit["単位数"]
+    for must_class_list in must_list:
+        for must_credit in must_class_list:
+            if must_credit["専門"]:
+                must_special += must_credit["単位数"]
+            else:
+                must_general += must_credit["単位数"]
 
-        if must_credit["学修"]:
-            must_gakushu += must_credit["単位数"]
+            if must_credit["学修"]:
+                must_gakushu += must_credit["単位数"]
 
     return must_general, must_special, must_gakushu
 
@@ -41,7 +42,7 @@ def index():
 
     return render_template('./main.html', select_credits=select_list, must_credits=must_list,
                            must_general=must_general, must_special=must_special, must_gakushu=must_gakushu,
-                           course_name="IS")
+                           course_name="IS", title="選択計算機 IS")
 
 
 @app.route('/ie')
@@ -51,7 +52,7 @@ def ie_index():
 
     return render_template('./main.html', select_credits=select_list, must_credits=must_list,
                            must_general=must_general, must_special=must_special, must_gakushu=must_gakushu,
-                           course_name="IE")
+                           course_name="IE", title="選択計算機 IE")
 
 
 @app.route('/it')
@@ -61,8 +62,8 @@ def it_index():
 
     return render_template('./main.html', select_credits=select_list, must_credits=must_list,
                            must_general=must_general, must_special=must_special, must_gakushu=must_gakushu,
-                           course_name="IT")
+                           course_name="IT", title="選択計算機 IE")
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
