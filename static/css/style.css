@@ -108,7 +108,3 @@ input[type="checkbox"]:checked:after {
   background-color: lightgray;
   width: 100%;
 }
-
-.credit {
-  padding: 0 0 130px 0;
-}
