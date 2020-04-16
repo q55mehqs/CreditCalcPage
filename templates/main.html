@@ -31,8 +31,26 @@
     }
 
     document.getElementById("general").textContent = gen;
+    if (gen >= 75) {
+      document.getElementById("general").style.color = "green"
+    }
+    else {
+      document.getElementById("general").style.color = "red"
+    }
+
     document.getElementById("special").textContent = spe;
+    if (spe >= 82) {
+      document.getElementById("special").style.color = "green"
+    } else {
+      document.getElementById("special").style.color = "red"
+    }
+
     document.getElementById("total").textContent = gen + spe;
+    if (gen + spe >= 167) {
+      document.getElementById("total").style.color = "green"
+    } else {
+      document.getElementById("total").style.color = "red"
+    }
     document.getElementById("gakushu").textContent = gak;
   }
 </script>
@@ -104,10 +122,10 @@
 
   <div class="column calc">
     <ul>
-      <li>一般科目(75+): <span id="general">{{ must_general }}</span></li>
-      <li>専門科目(82+): <span id="special">{{ must_special }}</span></li>
+      <li>一般科目(75+): <span id="general" style="color: red;">{{ must_general }}</span></li>
+      <li>専門科目(82+): <span id="special" style="color: red;">{{ must_special }}</span></li>
       {% set total = must_general + must_special %}
-      <li>合計(167+): <span id="total">{{ total }}</span></li>
+      <li>合計(167+): <span id="total" style="color: red;">{{ total }}</span></li>
       <li>学修単位(60-): <span id="gakushu">{{ must_gakushu }}</span></li>
     </ul>
   </div>
