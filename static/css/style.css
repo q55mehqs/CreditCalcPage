@@ -7,6 +7,79 @@ label, input[type='checkbox'] {
   cursor: pointer;
 }
 
+input[type="checkbox"] {
+  border: 1px solid #aaaaaa;
+  vertical-align: -8px;
+  -webkit-appearance: none;
+  position: relative;
+  margin-right: 5px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-sizing: border-box;
+  width: 26px;
+  height: 26px;
+  /*Other Browser*/
+  background: #e2e2e2;
+  /*For Old WebKit*/
+  background: -webkit-gradient(
+      linear, left top, left bottom,
+      color-stop(0.00, #ffffff),
+      color-stop(1.00, #e2e2e2)
+  );
+  /*For Modern Browser*/
+  background: linear-gradient(
+      to bottom,
+      #ffffff 0%,
+      #e2e2e2 100%
+  );
+}
+
+input[type="checkbox"]:checked {
+  /*Other Browser*/
+  background: #99cc00;
+  /*For Old WebKit*/
+  background: -webkit-gradient(
+      linear, left top, left bottom,
+      color-stop(0.00, #99cc00),
+      color-stop(1.00, #87b400)
+  );
+  /*For Modern Browser*/
+  background: linear-gradient(
+      to bottom,
+      #99cc00 0%,
+      #87b400 100%
+  );
+  border: 1px solid #336600;
+}
+
+input[type="checkbox"]:checked:before {
+  position: absolute;
+  left: 1px;
+  top: 16px;
+  display: block;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .5);
+  content: "";
+  width: 10px;
+  height: 4px;
+  background: #ffffff;
+  -webkit-transform: rotate(45deg);
+  -webkit-transform-origin: right center;
+}
+
+input[type="checkbox"]:checked:after {
+  display: block;
+  position: absolute;
+  left: 9px;
+  top: 16px;
+  content: "";
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .5);
+  width: 16px;
+  height: 4px;
+  background: #ffffff;
+  -webkit-transform: rotate(-53deg);
+  -webkit-transform-origin: left center;
+}
+
 .calc {
   position: fixed;
   bottom: 0px;
