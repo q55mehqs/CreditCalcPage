@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+{% block class_script %}
+{% endblock %}
+
+<div class="wrapper">
+    <h2>総合工学科 {{ course_name }} 単位計算機</h2>
+    <div style="margin: 10px 0 10px 0;">
+        <a href="/" class="raised">IS</a>
+        <a href="/it" class="raised">IT</a>
+        <a href="/ie" class="raised">IE</a>
+    </div>
+    <div style="margin: 10px 0 10px 0;">
+        <a href="/as_is" class="raised">AS(IS)</a>
+        <a href="/as_it" class="raised">AS(IT)</a>
+        <a href="/as_ie" class="raised">AS(IE)</a>
+    </div>
+    <hr>
+    <div class="column credit">
+      <details>
+        <summary>必修科目一覧</summary>
+        {% for class_credit in must_credits %}
+          <h4>{{ loop.index }}年</h4>
+          <ul>
+            {% for credit in class_credit %}
+              <li>
+                {{ credit.単位数 }}単位 
+  
+                {% if credit.専門 %}
+                  <span style="border: 1px solid; background-color: lightskyblue;">専門</span>
+                {% else %}
+                  <span style="border: 1px solid; background-color: lightsalmon;">一般</span>
+                {% endif %}
+  
+                {% if credit.学修 %}
+                  <span style="border: 1px solid; background-color: darkseagreen;">学修</span>
+                {% else %}
+                  <span style="border: 1px solid;">履修</span>
+                {% endif %}
+  
+                {{ credit.教科名 }}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endfor %}
+      </details>
+      <hr>
+  
+      <form name="creditForm">
+        {% block form %}
+        {% endblock %}
+      </form>
+    </div>
+  
+    <div class="column calc">
+      {% block calc %}
+      {% endblock %}
+    </div>
+  </div>
+{% endblock %}
