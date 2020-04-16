@@ -1,0 +1,102 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<script>
+  select_credits = {{ select_credits|tojson }};
+
+  function updateCount(){
+    must_general = {{ must_general }};
+    must_special = {{ must_special }};
+    must_gakushu = {{ must_gakushu }};
+    gen = must_general;
+    spe = must_special;
+    gak = must_gakushu;
+
+    const select_credits_checkbox = document.creditForm.credits;
+    for(let i = 0; i < select_credits_checkbox.length; i++) {
+      if(select_credits_checkbox[i].checked) {
+        select_credit = select_credits[select_credits_checkbox[i].value]
+        if(select_credit.専門) {
+          spe += select_credit.単位数;
+        }
+        else {
+          gen += select_credit.単位数;
+        }
+        if(select_credit.学修) {
+          gak += select_credit.単位数;
+        }
+      }
+    }
+
+    document.getElementById("general").textContent = gen;
+    document.getElementById("special").textContent = spe;
+    document.getElementById("total").textContent = gen + spe;
+    document.getElementById("gakushu").textContent = gak;
+  }
+</script>
+<div class="wrapper">
+  <h2>総合工学科 {{ course_name }} 単位計算機</h2>
+  <a href="/">IS</a>
+  <a href="/it">IT</a>
+  <a href="/ie">IE</a>
+  <div class="column credit">
+    <ul>
+      <details>
+        <summary>必修科目一覧</summary>
+        {% for credit in must_credits %}
+          <li>
+            {{ credit.単位数 }}単位 
+            <span style="border: 1px solid;">
+              {% if credit.専門 %}
+                専門
+              {% else %}
+                一般
+              {% endif %}
+            </span>
+            <span style="border: 1px solid;">
+              {% if credit.学修 %}
+                学修
+              {% else %}
+                履修
+              {% endif %}
+            </span>
+            {{ credit.教科名 }}
+          </li>
+        {% endfor %}
+      </details>
+      <form name="creditForm">
+        {% for credit in select_credits %}
+          <li>
+            <input type="checkbox" name="credits" value="{{ loop.index0 }}" onchange="updateCount()">
+            {{ credit.単位数 }}単位 
+            <span style="border: 1px solid;">
+              {% if credit.専門 %}
+                専門
+              {% else %}
+                一般
+              {% endif %}
+            </span>
+            <span style="border: 1px solid;">
+              {% if credit.学修 %}
+                学修
+              {% else %}
+                履修
+              {% endif %}
+            </span>
+            {{ credit.教科名 }}
+          </li>
+        {% endfor %}
+      </form>
+    </ul>
+  </div>
+  <div class="column calc">
+    <ul>
+      <li>一般科目(75+): <span id="general">{{ must_general }}</span></li>
+      <li>専門科目(82+): <span id="special">{{ must_special }}</span></li>
+      {% set total = must_general + must_special %}
+      <li>合計(167+): <span id="total">{{ total }}</span></li>
+      <li>学修単位(60-): <span id="gakushu">{{ must_gakushu }}</span></li>
+    </ul>
+  </div>
+</div>
+{% endblock %}
