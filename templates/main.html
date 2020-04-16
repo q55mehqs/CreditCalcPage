@@ -32,26 +32,36 @@
 
     document.getElementById("general").textContent = gen;
     if (gen >= 75) {
-      document.getElementById("general").style.color = "green"
+      document.getElementById("general").style.color = "green";
     }
     else {
-      document.getElementById("general").style.color = "red"
+      document.getElementById("general").style.color = "red";
     }
 
     document.getElementById("special").textContent = spe;
     if (spe >= 82) {
-      document.getElementById("special").style.color = "green"
+      document.getElementById("special").style.color = "green";
     } else {
-      document.getElementById("special").style.color = "red"
+      document.getElementById("special").style.color = "red";
     }
 
     document.getElementById("total").textContent = gen + spe;
     if (gen + spe >= 167) {
-      document.getElementById("total").style.color = "green"
+      document.getElementById("total").style.color = "green";
     } else {
-      document.getElementById("total").style.color = "red"
+      document.getElementById("total").style.color = "red";
     }
+
     document.getElementById("gakushu").textContent = gak;
+    if (gak > 60) {
+      document.getElementById("gakushu").style.color = "red";
+    }
+    else if (gak == 60) {
+      document.getElementById("gakushu").style.color = "orange";
+    }
+    else {
+      document.getElementById("gakushu").style.color = "black";
+    }
   }
 </script>
 <div class="wrapper">
@@ -126,7 +136,7 @@
       <li>専門科目(82+): <span id="special" style="color: red;">{{ must_special }}</span></li>
       {% set total = must_general + must_special %}
       <li>合計(167+): <span id="total" style="color: red;">{{ total }}</span></li>
-      <li>学修単位(60-): <span id="gakushu">{{ must_gakushu }}</span></li>
+      <li>学修単位(60-): <span id="gakushu" style="color: black;">{{ must_gakushu }}</span></li>
     </ul>
   </div>
 </div>
