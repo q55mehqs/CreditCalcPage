@@ -141,8 +141,8 @@
   <ul>
     <li><span style="background-color: lightsalmon;">一般科目</span>(75+): <span id="general" style="color: red;">{{ must_general }}</span></li>
     <li><span style="background-color: lightskyblue;">専門科目</span>(82+): <span id="special" style="color: red;">{{ must_special }}</span></li>
-    <li>必修選択1(9科目+): <span id="hissen1" style="color: red;">0</span></li>
-    <li>必修選択2(2科目+): <span id="hissen2" style="color: red;">0</span></li>
+    <li><span style="background-color: gold;">必修選択1</span>(9科目+): <span id="hissen1" style="color: red;">0</span></li>
+    <li><span style="background-color: wheat;">必修選択2</span>(2科目+): <span id="hissen2" style="color: red;">0</span></li>
     {% set total = must_general + must_special %}
     <li>合計(167+): <span id="total" style="color: red;">{{ total }}</span></li>
     <li><span style="background-color: darkseagreen;">学修単位</span>(60-): <span id="gakushu" style="color: black;">{{ must_gakushu }}</span></li>
