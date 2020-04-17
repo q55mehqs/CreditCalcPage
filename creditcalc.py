@@ -77,7 +77,7 @@ def index():
     must_list, select_list = class_jugyo_data(["1-1", "IS2", "IS3", "IS4", "IS5"])
     must_general, must_special, must_gakushu = must_count(must_list)
 
-    return render_template('./main.html', select_credits=select_list, must_credits=must_list,
+    return render_template('./main.html.jinja2', select_credits=select_list, must_credits=must_list,
                            must_general=must_general, must_special=must_special, must_gakushu=must_gakushu,
                            course_name="IS", title="選択計算機 IS")
 
@@ -87,7 +87,7 @@ def ie_index():
     must_list, select_list = class_jugyo_data(["1-1", "IE2", "IE3", "IE4", "IE5"])
     must_general, must_special, must_gakushu = must_count(must_list)
 
-    return render_template('./main.html', select_credits=select_list, must_credits=must_list,
+    return render_template('./main.html.jinja2', select_credits=select_list, must_credits=must_list,
                            must_general=must_general, must_special=must_special, must_gakushu=must_gakushu,
                            course_name="IE", title="選択計算機 IE")
 
@@ -97,7 +97,7 @@ def it_index():
     must_list, select_list = class_jugyo_data(["1-1", "IT2", "IT3", "IT4", "IT5"])
     must_general, must_special, must_gakushu = must_count(must_list)
 
-    return render_template('./main.html', select_credits=select_list, must_credits=must_list,
+    return render_template('./main.html.jinja2', select_credits=select_list, must_credits=must_list,
                            must_general=must_general, must_special=must_special, must_gakushu=must_gakushu,
                            course_name="IT", title="選択計算機 IE")
 
@@ -106,7 +106,7 @@ def as_is_index():
     must, select = as_jugyo_data("IS")
     must_gen, must_spe, must_gak = must_count(must)
 
-    return render_template('./as_main.html', title="選択計算機 AS(IS)", course_name="AS(IS)",
+    return render_template('./as_main.html.jinja2', title="選択計算機 AS(IS)", course_name="AS(IS)",
                            select_credits=select, must_credits=must,
                            must_general=must_gen, must_special=must_spe, must_gakushu=must_gak)
 
@@ -116,7 +116,7 @@ def as_it_index():
     must, select = as_jugyo_data("IT")
     must_gen, must_spe, must_gak = must_count(must)
 
-    return render_template('./as_main.html', title="選択計算機 AS(IT)", course_name="AS(IT)",
+    return render_template('./as_main.html.jinja2', title="選択計算機 AS(IT)", course_name="AS(IT)",
                            select_credits=select, must_credits=must,
                            must_general=must_gen, must_special=must_spe, must_gakushu=must_gak)
 
@@ -126,7 +126,7 @@ def as_ie_index():
     must, select = as_jugyo_data("IE")
     must_gen, must_spe, must_gak = must_count(must)
 
-    return render_template('./as_main.html', title="選択計算機 AS(IE)", course_name="AS(IE)",
+    return render_template('./as_main.html.jinja2', title="選択計算機 AS(IE)", course_name="AS(IE)",
                            select_credits=select, must_credits=must,
                            must_general=must_gen, must_special=must_spe, must_gakushu=must_gak)
 
