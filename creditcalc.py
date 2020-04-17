@@ -99,7 +99,7 @@ def it_index():
 
     return render_template('./main.html.jinja2', select_credits=select_list, must_credits=must_list,
                            must_general=must_general, must_special=must_special, must_gakushu=must_gakushu,
-                           course_name="IT", title="選択計算機 IE")
+                           course_name="IT", title="選択計算機 IT")
 
 @app.route('/as_is')
 def as_is_index():
