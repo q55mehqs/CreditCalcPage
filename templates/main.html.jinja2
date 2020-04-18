@@ -99,11 +99,11 @@
 {% endblock %}
 
 {% block calc %}
-    <ul>
-      <li><span style="background-color: lightsalmon;">一般科目</span>(75+): <span id="general" style="color: red;">{{ must_general }}</span></li>
-      <li><span style="background-color: lightskyblue;">専門科目</span>(82+): <span id="special" style="color: red;">{{ must_special }}</span></li>
-      {% set total = must_general + must_special %}
-      <li>合計(167+): <span id="total" style="color: red;">{{ total }}</span></li>
-      <li><span style="background-color: darkseagreen;">学修単位</span>(60-): <span id="gakushu" style="color: black;">{{ must_gakushu }}</span></li>
-    </ul>
+  <ul>
+    <li><span style="background-color: lightsalmon;">一般科目</span>(75+): <span id="general" style="color: red;">{{ must_general }}</span></li>
+    <li><span style="background-color: lightskyblue;">専門科目</span>(82+): <span id="special" style="color: red;">{{ must_special }}</span></li>
+    {% set total = must_general + must_special %}
+    <li>合計(167+): <span id="total" style="color: red;">{{ total }}</span></li>
+    <li><span style="background-color: darkseagreen;">学修単位</span>(60-): <span id="gakushu" style="color: black;">{{ must_gakushu }}</span></li>
+  </ul>
 {% endblock %}

@@ -6,9 +6,11 @@ from pprint import pprint
 
 from typing import List, Tuple, Union, Dict
 
+
 app = Flask(__name__)
 with open("snctCredit/jugyoList_17s_linear.json", "r", encoding="utf-8") as f:
     items_class_sort = loads(f.read())
+
 
 def as_dict(base_course: str) -> Dict[str, List[Dict[str, Union[str, bool, int]]]]:
     with open("snctCredit/jugyoList_AS_17s_linear.json", "r", encoding="utf-8") as f:
@@ -29,6 +31,7 @@ def class_jugyo_data(course_class_list):
     must_list = [[item for item in class_items if item["必修"]] for class_items in items]
 
     return must_list, select_list
+
 
 def as_jugyo_data(base_course: str):
     items = []
@@ -100,6 +103,7 @@ def it_index():
     return render_template('./main.html.jinja2', select_credits=select_list, must_credits=must_list,
                            must_general=must_general, must_special=must_special, must_gakushu=must_gakushu,
                            course_name="IT", title="選択計算機 IT")
+
 
 @app.route('/as_is')
 def as_is_index():
