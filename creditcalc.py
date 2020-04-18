@@ -1,28 +1,30 @@
 # -*- coding: utf-8 -*-
+from json import loads
+from typing import List, Union, Dict, Tuple
 from flask import Flask, render_template
-from json import loads, dumps
-
-from pprint import pprint
-
-from typing import List, Tuple, Union, Dict
-
 
 app = Flask(__name__)
+
+
 with open("snctCredit/jugyoList_17s_linear.json", "r", encoding="utf-8") as f:
     items_class_sort = loads(f.read())
 
 
-def as_dict(base_course: str) -> Dict[str, List[Dict[str, Union[str, bool, int]]]]:
-    with open("snctCredit/jugyoList_AS_17s_linear.json", "r", encoding="utf-8") as f:
-        items_as_sort = loads(f.read())
-    with open("snctCredit/jugyoList_AS_base_linear.json", "r", encoding="utf-8") as f:
-        items_base_sort = loads(f.read())
+JugyoData = Dict[str, Union[str, bool, int]]
+
+
+def as_dict(base_course: str) -> Dict[str, List[JugyoData]]:
+    with open("snctCredit/jugyoList_AS_17s_linear.json", "r", encoding="utf-8") as f_as:
+        items_as_sort = loads(f_as.read())
+    with open("snctCredit/jugyoList_AS_base_linear.json", "r", encoding="utf-8") as f_as:
+        items_base_sort = loads(f_as.read())
     items_as_sort["AS4"].extend(items_base_sort["%s4" % base_course])
     items_as_sort["AS5"].extend(items_base_sort["%s5" % base_course])
 
     return items_as_sort
 
-def class_jugyo_data(course_class_list):
+
+def class_jugyo_data(course_class_list: List[str]) -> Tuple[List[List[JugyoData]], List[List[JugyoData]]]:
     items = []
     for _class in course_class_list:
         items.append(items_class_sort[_class])
@@ -33,7 +35,7 @@ def class_jugyo_data(course_class_list):
     return must_list, select_list
 
 
-def as_jugyo_data(base_course: str):
+def as_jugyo_data(base_course: str) -> Tuple[List[List[JugyoData]], List[List[JugyoData]]]:
     items = []
     base_class = ["1-1", "%s2" % base_course, "%s3" % base_course]
     must, select = class_jugyo_data(base_class)
@@ -57,8 +59,7 @@ def as_jugyo_data(base_course: str):
     return must, select
 
 
-def must_count(must_list):
-    pprint(must_list)
+def must_count(must_list) -> Tuple[int, int, int]:
     must_general = 0
     must_special = 0
     must_gakushu = 0
