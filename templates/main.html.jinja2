@@ -5,18 +5,18 @@
   select_credits = {{ select_credits|tojson }};
 
   function updateCount(){
-    must_general = {{ must_general }};
-    must_special = {{ must_special }};
-    must_gakushu = {{ must_gakushu }};
-    gen = must_general;
-    spe = must_special;
-    gak = must_gakushu;
+    const must_general = {{ must_general }};
+    const must_special = {{ must_special }};
+    const must_gakushu = {{ must_gakushu }};
+    let gen = must_general;
+    let spe = must_special;
+    let gak = must_gakushu;
 
     const select_credits_checkbox = document.creditForm.credits;
     for(let i = 0; i < select_credits_checkbox.length; i++) {
       if(select_credits_checkbox[i].checked) {
         let split = select_credits_checkbox[i].value.split(' ')
-        select_credit = select_credits[split[0]][split[1]]
+        let select_credit = select_credits[split[0]][split[1]]
 
         if(select_credit.専門) {
           spe += select_credit.単位数;
@@ -56,7 +56,7 @@
     if (gak > 60) {
       document.getElementById("gakushu").style.color = "red";
     }
-    else if (gak == 60) {
+    else if (gak === 60) {
       document.getElementById("gakushu").style.color = "orange";
     }
     else {
