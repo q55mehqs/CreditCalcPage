@@ -18,7 +18,11 @@
       <a href="/as_ie" class="raised">AS(IE)</a>
   </div>
   仙台高専 I類で、自分が選びたい選択単位で卒業単位に足りるかを確認するページです。<br>
-  これまでに認定された、もしくはこれから受講する単位にチェックをつけてください。
+  これまでに認定された、もしくはこれから受講する単位にチェックをつけてください。<br>
+  <a href="https://syllabus.kosen-k.go.jp/Pages/PublicSubjects?school_id=07&department_id=20&year=2020&lang=ja">シラバス - 総合工学科 I類</a>
+  {% if "AS" in course_name %}
+    <br><a href="https://syllabus.kosen-k.go.jp/Pages/PublicSubjects?school_id=07&department_id=51&year=2020&lang=ja">シラバス - 応用科学コース</a>
+  {% endif %}
   <hr>
   {% if "AS" in course_name %}
     <div class="column credit" style="padding: 0 0 180px 0;">
