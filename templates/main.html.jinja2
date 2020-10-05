@@ -15,8 +15,8 @@
     const select_credits_checkbox = document.creditForm.credits;
     for(let i = 0; i < select_credits_checkbox.length; i++) {
       if(select_credits_checkbox[i].checked) {
-        let split = select_credits_checkbox[i].value.split(' ')
-        let select_credit = select_credits[split[0]][split[1]]
+        const split = select_credits_checkbox[i].value.split(' ')
+        const select_credit = select_credits[split[0]][split[1]]
 
         if(select_credit.専門) {
           spe += select_credit.単位数;
@@ -30,6 +30,34 @@
       }
     }
 
+    // TODO 新規追加 資格系単位 関数分けたいけど頭働かねえ
+    const allSpecials = {{specials|tojson}};
+    const selectSpecials = document.creditForm.special;
+
+    for (let i = 0; i < selectSpecials.length; i++) {
+      const index = selectSpecials[i].selectedIndex;
+      const value = selectSpecials[i].options[index].value;
+
+      if (value == "-1") {
+        continue;
+      }
+
+      const split = value.split(" ");
+      const specialInfo = allSpecials[split[0]];
+      const credits = specialInfo["grade"][split[1]]["単位数"];
+
+      if (specialInfo.専門) {
+        spe += credits;
+      }
+      else {
+        gen += credits;
+      }
+    }
+
+    setCalcData(gen, spe, gak);
+  }
+
+  function setCalcData(gen, spe, gak) {
     document.getElementById("general").textContent = gen;
     if (gen >= 75) {
       document.getElementById("general").style.color = "green";
@@ -96,6 +124,39 @@
       {% endfor %}
     </ul>
   {% endfor %}
+
+  <details>
+    <summary>特別学修 (TOEIC等資格単位)</summary>
+    {% for special_gak in specials %}
+      <p>
+      {# 資格系単位のタイトル #}
+      {{special_gak["title"]}}
+
+      {# 四角形単位が一般に加算されるか、専門に加算されるかをHTML上に表示 #}
+      {% if special_gak.専門 %}
+        <span style="border: 1px solid; background-color: lightskyblue;">専門</span>
+      {% else %}
+        <span style="border: 1px solid; background-color: lightsalmon;">一般</span>
+      {% endif %}
+      </p>
+
+      {# 各資格の取る/取らないを入力できるようなフォームを作成する #}
+      {% set outer_index = loop.index0 %}
+      <select name="special" onchange="updateCount()">
+        <option value="-1" selected>取らない</option>
+
+        {# n級など、取る資格について単位数に上限が発生する難易度を選択できるようにする #}
+        {% for child_spe in special_gak["grade"] %}
+        <option value="{{outer_index}} {{loop.index0}}">
+          ({{child_spe["単位数"]}}単位) {{child_spe["gradeTitle"]}} ({{child_spe["対象学年"]|join(", ")}}年対象)
+        </option>
+        {% endfor %}
+
+      </select>
+
+      <br><br>
+    {% endfor %}
+  </details>
 {% endblock %}
 
 {% block calc %}

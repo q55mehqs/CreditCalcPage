@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from json import loads
+from json import load, loads
 from typing import List, Union, Dict, Tuple
 from flask import Flask, render_template
 
@@ -9,6 +9,8 @@ app = Flask(__name__)
 with open("snctCredit/jugyoList_17s_linear.json", "r", encoding="utf-8") as f:
     items_class_sort = loads(f.read())
 
+with open("snctCredit/spe_gakushu_linear.json", "r", encoding="utf-8", newline="") as f:
+    specials = load(f)
 
 JugyoData = Dict[str, Union[str, bool, int]]
 
@@ -83,7 +85,7 @@ def index():
 
     return render_template('./main.html.jinja2', select_credits=select_list, must_credits=must_list,
                            must_general=must_general, must_special=must_special, must_gakushu=must_gakushu,
-                           course_name="IS", title="選択計算機 IS")
+                           course_name="IS", title="選択計算機 IS", specials=specials)
 
 
 @app.route('/ie')
@@ -93,7 +95,7 @@ def ie_index():
 
     return render_template('./main.html.jinja2', select_credits=select_list, must_credits=must_list,
                            must_general=must_general, must_special=must_special, must_gakushu=must_gakushu,
-                           course_name="IE", title="選択計算機 IE")
+                           course_name="IE", title="選択計算機 IE", specials=specials)
 
 
 @app.route('/it')
@@ -103,7 +105,7 @@ def it_index():
 
     return render_template('./main.html.jinja2', select_credits=select_list, must_credits=must_list,
                            must_general=must_general, must_special=must_special, must_gakushu=must_gakushu,
-                           course_name="IT", title="選択計算機 IT")
+                           course_name="IT", title="選択計算機 IT", specials=specials)
 
 
 @app.route('/as_is')
@@ -113,7 +115,8 @@ def as_is_index():
 
     return render_template('./as_main.html.jinja2', title="選択計算機 AS(IS)", course_name="AS(IS)",
                            select_credits=select, must_credits=must,
-                           must_general=must_gen, must_special=must_spe, must_gakushu=must_gak)
+                           must_general=must_gen, must_special=must_spe, must_gakushu=must_gak,
+                           specials=specials)
 
 
 @app.route('/as_it')
@@ -123,7 +126,8 @@ def as_it_index():
 
     return render_template('./as_main.html.jinja2', title="選択計算機 AS(IT)", course_name="AS(IT)",
                            select_credits=select, must_credits=must,
-                           must_general=must_gen, must_special=must_spe, must_gakushu=must_gak)
+                           must_general=must_gen, must_special=must_spe, must_gakushu=must_gak,
+                           specials=specials)
 
 
 @app.route('/as_ie')
@@ -133,8 +137,9 @@ def as_ie_index():
 
     return render_template('./as_main.html.jinja2', title="選択計算機 AS(IE)", course_name="AS(IE)",
                            select_credits=select, must_credits=must,
-                           must_general=must_gen, must_special=must_spe, must_gakushu=must_gak)
+                           must_general=must_gen, must_special=must_spe, must_gakushu=must_gak,
+                           specials=specials)
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
