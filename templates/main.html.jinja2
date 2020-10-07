@@ -95,12 +95,17 @@
 {% endblock %}
 
 {% block form %}
+  {# 全学年の選択を各学年分でforEachループ #}
   {% for class_credit in select_credits %}
+    {# outer_index = 学年 - 1 (jsonから選択するときのindex) #}
     {% set outer_index = loop.index0 %}
     <h4>{{ loop.index }}年</h4>
     <ul>
+      {# 学年のすべての選択科目class_creditから1科目ずつ取り出すforEach #}
       {% for credit in class_credit %}
         <li>
+          {# id...label全体にチェックボックスのクリック判定を与えるための個別ID
+             value...jsonの[split[0]][split[1]]を取り出せばその科目になる #}
           <label for="credit_clicks_{{ outer_index }}{{ loop.index0 }}">
             <input type="checkbox" name="credits" id="credit_clicks_{{ outer_index }}{{ loop.index0 }}"
                     value="{{ outer_index }} {{ loop.index0 }}" onchange="updateCount()">
