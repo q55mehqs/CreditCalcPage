@@ -34,6 +34,7 @@
     const allSpecials = {{specials|tojson}};
     const selectSpecials = document.creditForm.special;
 
+    let selectSpecialsCount = 0;
     for (let i = 0; i < selectSpecials.length; i++) {
       const index = selectSpecials[i].selectedIndex;
       const value = selectSpecials[i].options[index].value;
@@ -44,7 +45,12 @@
 
       const split = value.split(" ");
       const specialInfo = allSpecials[split[0]];
-      const credits = specialInfo["grade"][split[1]]["単位数"];
+      let credits = specialInfo["grade"][split[1]]["単位数"];
+      selectSpecialsCount += credits;
+
+      if (selectSpecialsCount >= 9) {
+        credits = credits - (selectSpecialsCount - 8);
+      }
 
       if (specialInfo.専門) {
         spe += credits;
@@ -52,9 +58,38 @@
       else {
         gen += credits;
       }
+
+      if (selectSpecialsCount >= 8) {
+        window.alert("特別学修は8単位まで有効です。現在" + selectSpecialsCount 
+          + "単位選択されています。選択し直す場合は、現在選択されているものを一度外してください。");
+
+        disableUnsetedSpecials();
+      }
+      else {
+        enableUnsetedSpecials();
+      }
     }
 
     setCalcData(gen, spe, gak);
+  }
+
+  function disableUnsetedSpecials() {
+    const selectSpecials = document.creditForm.special;
+    for (let i = 0; i < selectSpecials.length; i++) {
+      const index = selectSpecials[i].selectedIndex;
+      const value = selectSpecials[i].options[index].value;
+
+      if (value == "-1") {
+        selectSpecials[i].disabled = true;
+      }
+    }
+  }
+
+  function enableUnsetedSpecials() {
+    const selectSpecials = document.creditForm.special;
+    for (let i = 0; i < selectSpecials.length; i++) {
+      selectSpecials[i].disabled = false;
+    }
   }
 
   function setCalcData(gen, spe, gak) {
@@ -131,7 +166,7 @@
   {% endfor %}
 
   <details>
-    <summary>特別学修 (TOEIC等資格単位)</summary>
+    <summary>特別学修 (TOEIC等資格単位) 8単位まで</summary>
     {% for special_gak in specials %}
       <p>
       {# 資格系単位のタイトル #}
