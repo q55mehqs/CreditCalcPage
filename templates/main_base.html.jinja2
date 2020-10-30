@@ -31,10 +31,13 @@
   {% endif %}
     <details>
       <summary>必修科目一覧</summary>
+      {% set ns = namespace(cnt=1) %}
       {% for class_credit in must_credits %}
+        {% set ns.grade_total_count = 0 %}
         <h4>{{ loop.index }}年</h4>
         <ul>
           {% for credit in class_credit %}
+            {% set ns.grade_total_count = ns.grade_total_count + credit.単位数 %}
             <li>
               {{ credit.単位数 }}単位
 
@@ -54,6 +57,7 @@
             </li>
           {% endfor %}
         </ul>
+        <p>{{loop.index}}年 合計必修単位: {{ ns.grade_total_count }}</p>
       {% endfor %}
     </details>
     <hr>
