@@ -69,16 +69,16 @@
       else {
         gen += credits;
       }
+    }
 
-      if (selectSpecialsCount >= 8) {
-        window.alert("特別学修は8単位まで有効です。現在" + selectSpecialsCount 
-          + "単位選択されています。選択し直す場合は、現在選択されているものを一度外してください。");
+    if (selectSpecialsCount >= 8) {
+      window.alert("特別学修は8単位まで有効です。現在" + selectSpecialsCount 
+        + "単位選択されています。選択し直す場合は、現在選択されているものを一度外してください。");
 
-        disableUnsetedSpecials();
-      }
-      else {
-        enableUnsetedSpecials();
-      }
+      disableUnsetedSpecials();
+    }
+    else {
+      enableUnsetedSpecials();
     }
 
     document.getElementById("general").textContent = gen;
