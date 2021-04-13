@@ -132,10 +132,41 @@
 
 {% block form %}
   {# 全学年の選択を各学年分でforEachループ #}
+  {% set ns = namespace(cnt=1) %}
   {% for class_credit in select_credits %}
     {# outer_index = 学年 - 1 (jsonから選択するときのindex) #}
     {% set outer_index = loop.index0 %}
-    <h4>{{ loop.index }}年</h4>
+    {% set ns.grade_total_count = 0 %}
+    <h3>{{ loop.index }}年</h3>
+    <details>
+      <summary>必修科目 (クリックで展開)</summary>
+      <hr>
+      {% for credit in must_credits[outer_index] %}
+      <ul>
+        {% set ns.grade_total_count = ns.grade_total_count + credit.単位数 %}
+        <li>
+          {{ credit.単位数 }}単位
+
+          {% if credit.専門 %}
+            <span style="border: 1px solid; background-color: lightskyblue;">専門</span>
+          {% else %}
+            <span style="border: 1px solid; background-color: lightsalmon;">一般</span>
+          {% endif %}
+
+          {% if credit.学修 %}
+            <span style="border: 1px solid; background-color: darkseagreen;">学修</span>
+          {% else %}
+            <span style="border: 1px solid;">履修</span>
+          {% endif %}
+
+          {{ credit.教科名 }}
+        </li>
+      {% endfor %}
+      </ul>
+      <p>{{loop.index}}年 合計必修単位: {{ ns.grade_total_count }}</p>
+      <hr>
+    </details>
+
     <ul>
       {# 学年のすべての選択科目class_creditから1科目ずつ取り出すforEach #}
       {% for credit in class_credit %}
